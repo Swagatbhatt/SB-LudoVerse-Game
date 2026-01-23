@@ -69,23 +69,22 @@ function startGame(mode) {
         if (mode === 4) activeColors = ['red', 'green', 'yellow', 'blue'];
     }
 
-   // ... inside startGame(mode) ...
-['red', 'green', 'yellow', 'blue'].forEach(c => {
-    // Pawns visibility
-    for(let i=0; i<4; i++) {
-        document.getElementById(c[0] + i).style.display = activeColors.includes(c) ? 'block' : 'none';
-    }
-    
-    // Dice visibility - Use 'visibility' instead of 'display'
-    let diceContainer = document.getElementById(`dice-container-${c}`);
-    if(diceContainer) {
-        // This keeps the 'box' there even if the dice is invisible
-        diceContainer.style.visibility = activeColors.includes(c) ? 'visible' : 'hidden';
+    ['red', 'green', 'yellow', 'blue'].forEach(c => {
+        // Pawns: We use display:none here because they don't affect layout
+        for(let i=0; i<4; i++) {
+            document.getElementById(c[0] + i).style.display = activeColors.includes(c) ? 'block' : 'none';
+        }
         
-        // Ensure the default image is set
-        document.getElementById(`dice-img-${c}`).src = "dice1.png";
-    }
-});
+        // Dice Containers: Use visibility to keep the layout stable
+        let diceContainer = document.getElementById(`dice-container-${c}`);
+        if(diceContainer) {
+            // This is the FIX: 'hidden' keeps the space, 'visible' shows it
+            diceContainer.style.visibility = activeColors.includes(c) ? 'visible' : 'hidden';
+            
+            // Ensure the dice starts with face 1
+            document.getElementById(`dice-img-${c}`).src = "dice1.png";
+        }
+    });
 
     showMainMenuUI(false);
     resetGameState();
@@ -421,9 +420,15 @@ function arrangePawns() {
 }
 
 function updateStatusUI() {
+    // Remove glow from all dice first
     document.querySelectorAll('.dice-btn').forEach(d => d.classList.remove('dice-active'));
+    
+    // Add glow ONLY to the current player's dice
     let activeDice = document.getElementById(`dice-${turn}`);
-    if(activeDice) activeDice.classList.add('dice-active');
+    if(activeDice) {
+        activeDice.classList.add('dice-active');
+    }
+
     statusText.innerText = turn.toUpperCase() + "'S TURN";
     const colors = { red: '#ff4757', green: '#2ecc71', yellow: '#f1c40f', blue: '#3498db' };
     statusText.style.color = colors[turn];
@@ -486,5 +491,6 @@ function restartGame() {
     statusText.innerText = "GAME RESTARTED";
 }
 function quitGame() { location.reload(); }
+
 
 
