@@ -70,15 +70,12 @@ function startGame(mode) {
     }
 
     ['red', 'green', 'yellow', 'blue'].forEach(c => {
-        // Pawns
         for(let i=0; i<4; i++) {
             document.getElementById(c[0] + i).style.display = activeColors.includes(c) ? 'block' : 'none';
         }
-        // Dice
         let diceContainer = document.getElementById(`dice-container-${c}`);
         if(diceContainer) {
             diceContainer.style.display = activeColors.includes(c) ? 'flex' : 'none';
-            // Corrected: Set default image
             document.getElementById(`dice-img-${c}`).src = "dice1.png";
         }
     });
@@ -189,16 +186,67 @@ function checkPossibleMoves() {
         statusText.innerText = "NO MOVES";
         setTimeout(switchTurn, 1000);
     } else if (validPawns.length === 1) {
+        // Automatically move if only one choice exists
         setTimeout(() => movePawnLogic(turn, validPawns[0]), 500);
     } else {
-        isRolling = false; 
-        waitingForMove = true; 
-        statusText.innerText = "PICK A PAWN";
-        highlightPawns(validPawns);
         if (gameMode === 'cpu' && turn !== 'red') {
+            // CPU automatically picks the best move if multiple exist
             setTimeout(() => cpuPickMove(validPawns), 500);
+        } else {
+            isRolling = false; 
+            waitingForMove = true; 
+            statusText.innerText = "PICK A PAWN";
+            highlightPawns(validPawns);
         }
     }
+}
+
+function cpuPickMove(validPawns) {
+    let bestMoveIndex = -1;
+    let highestScore = -1000;
+
+    validPawns.forEach(pawnIndex => {
+        let score = 0;
+        let currentPos = positions[turn][pawnIndex];
+        let nextPosIndex = (currentPos === -1) ? 0 : currentPos + diceValue;
+        
+        // Priority 1: Winning (Getting to the end)
+        if (nextPosIndex === 56) score += 1000; 
+
+        // Priority 2: Killing a rival pawn
+        let nextCoord = paths[turn][nextPosIndex];
+        let wouldKill = false;
+        activeColors.forEach(opponent => {
+            if (opponent !== turn) {
+                positions[opponent].forEach(oppPos => {
+                    if (oppPos !== -1 && oppPos !== 999) {
+                        let enemyCoord = paths[opponent][oppPos];
+                        if (enemyCoord.x === nextCoord.x && enemyCoord.y === nextCoord.y) {
+                            wouldKill = true;
+                        }
+                    }
+                });
+            }
+        });
+        if (wouldKill) score += 500;
+
+        // Priority 3: Opening a new pawn (Getting out of home)
+        if (currentPos === -1 && diceValue === 6) score += 300;
+
+        // Priority 4: General progress
+        score += nextPosIndex; 
+
+        // Add small randomness so it doesn't always pick the same pawn
+        score += Math.random() * 10;
+
+        if (score > highestScore) {
+            highestScore = score;
+            bestMoveIndex = pawnIndex;
+        }
+    });
+
+    // Execute the best move automatically
+    setTimeout(() => movePawnLogic(turn, bestMoveIndex), 500);
 }
 
 function canMove(currentPos, steps) {
@@ -367,7 +415,8 @@ function arrangePawns() {
 
 function updateStatusUI() {
     document.querySelectorAll('.dice-btn').forEach(d => d.classList.remove('dice-active'));
-    document.getElementById(`dice-${turn}`).classList.add('dice-active');
+    let activeDice = document.getElementById(`dice-${turn}`);
+    if(activeDice) activeDice.classList.add('dice-active');
     statusText.innerText = turn.toUpperCase() + "'S TURN";
     const colors = { red: '#ff4757', green: '#2ecc71', yellow: '#f1c40f', blue: '#3498db' };
     statusText.style.color = colors[turn];
@@ -400,6 +449,17 @@ function togglePauseMenu() {
 function toggleFullScreen() {
     if (!document.fullscreenElement) document.documentElement.requestFullscreen();
     else document.exitFullscreen();
+}
+
+function checkVictory(player) {
+    if (positions[player].every(p => p === 999)) {
+        isRolling = false;
+        playSound('win');
+        alert(player.toUpperCase() + " WINS!");
+        location.reload();
+        return true; 
+    }
+    return false;
 }
 
 function restartGame() { location.reload(); }
