@@ -462,5 +462,21 @@ function checkVictory(player) {
     return false;
 }
 
-function restartGame() { location.reload(); }
+function restartGame() {
+    // 1. Close Paused Menu or Victory Screen
+    document.getElementById('pause-modal').classList.add('hidden');
+    const vicScreen = document.getElementById('victory-screen');
+    if (vicScreen) vicScreen.remove();
+
+    // 2. Clear all active timers
+    if(rollInterval) clearInterval(rollInterval);
+    if(moveInterval) clearInterval(moveInterval);
+    
+    // 3. Re-run the game start logic with the same mode
+    // This keeps you on the game screen instead of the main menu
+    resetGameState();
+    
+    statusText.innerText = "GAME RESTARTED";
+}
 function quitGame() { location.reload(); }
+
