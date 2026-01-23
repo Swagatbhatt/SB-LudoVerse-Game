@@ -28,7 +28,11 @@ body::before {
 }
 
 h1, h2, button { letter-spacing: 1px; }
-.hidden { display: none !important; }
+.hidden {
+    display: none !important;
+    visibility: hidden;
+    pointer-events: none; /* This ensures it can't block clicks */
+}
 
 /* =========================================
    2. TOP BAR & BUTTONS
@@ -182,14 +186,19 @@ h1, h2, button { letter-spacing: 1px; }
    6. MENUS & TEXT
    ========================================= */
 .menu-screen {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 85%; max-width: 380px;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    width: 85%; 
+    max-width: 380px;
     background: #121212; 
     border: 2px solid #444; 
     padding: 30px; 
     border-radius: 20px; 
     text-align: center;
     box-shadow: 0 10px 50px rgba(0, 0, 0, 0.95);
+    z-index: 1000; /* Add this to bring it to the very front */
 }
 
 /* --- TITLE: DIAMOND SILVER (Clean & Classy) --- */
@@ -327,4 +336,5 @@ h1, h2, button { letter-spacing: 1px; }
     justify-content: center;
     align-items: center;
 }
+
 
