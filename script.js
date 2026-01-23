@@ -174,7 +174,7 @@ function rollDice() {
     playSound('roll');
     
     const currentDiceBox = document.getElementById(`dice-${turn}`);
-    const currentDiceVal = document.getElementById(`dice-val-${turn}`);
+    const currentDiceImg = document.getElementById(`dice-img-${turn}`); // Targeted the image
     
     currentDiceBox.classList.add('shaking');
     statusText.innerText = "ROLLING...";
@@ -183,21 +183,18 @@ function rollDice() {
 
     let counter = 0;
     rollInterval = setInterval(() => {
-        // --- 3x SIX PREVENTION ---
-        if (sixCount >= 2) {
-             diceValue = Math.floor(Math.random() * 5) + 1; // Force 1-5
-        } else {
-             diceValue = Math.floor(Math.random() * 6) + 1;
-        }
+        // Randomize dice value
+        diceValue = Math.floor(Math.random() * 6) + 1;
         
-        currentDiceVal.innerText = diceValue;
+        // UPDATE IMAGE INSTEAD OF TEXT
+        currentDiceImg.src = `dice${diceValue}.png`; 
+        
         counter++;
-        
         if (counter > 12) {
             clearInterval(rollInterval);
             currentDiceBox.classList.remove('shaking');
             
-            // --- CHECK 3 SIXES ---
+            // Handle 6-count logic as before...
             if (diceValue === 6) {
                 sixCount++;
                 if (sixCount === 3) {
@@ -209,12 +206,10 @@ function rollDice() {
             } else {
                 sixCount = 0; 
             }
-            
             checkPossibleMoves();
         }
     }, 50);
 }
-
 function checkPossibleMoves() {
     let validPawns = [];
     positions[turn].forEach((pos, index) => {
@@ -700,4 +695,5 @@ function toggleFullScreen() {
         }
     }
 }
+
 
