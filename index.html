@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SB Ludoverse</title>
     <link rel="stylesheet" href="style.css">
-    
-    <style>
-        * {
-            touch-action: manipulation; /* Disables double-tap to zoom */
-        }
-    </style>
+    <style> * { touch-action: manipulation; } </style>
 </head>
 <body>
 
@@ -19,78 +14,72 @@
             <h1 class="game-title">SB LUDOVERSE</h1>
             <h2 class="game-tagline">Roll into the Universe</h2>
         </div>
-        
         <div class="mode-grid">
-            <button onclick="startGame(2)" class="btn-mode btn-2p"><span class="icon">👥</span> 2 PLAYERS</button>
-            <button onclick="startGame(3)" class="btn-mode btn-3p"><span class="icon">👥</span> 3 PLAYERS</button>
-            <button onclick="startGame(4)" class="btn-mode btn-4p"><span class="icon">👥</span> 4 PLAYERS</button>
-            <button onclick="startGame('cpu')" class="btn-mode btn-cpu"><span class="icon">🤖</span> VS CPU</button>
+            <button onclick="startGame(2)" class="btn-mode btn-2p">👥 2 PLAYERS</button>
+            <button onclick="startGame(3)" class="btn-mode btn-3p">👥 3 PLAYERS</button>
+            <button onclick="startGame(4)" class="btn-mode btn-4p">👥 4 PLAYERS</button>
+            <button onclick="startGame('cpu')" class="btn-mode btn-cpu">🤖 VS CPU</button>
         </div>
-
         <button onclick="showRules()" class="btn-rules">📜 RULES & GUIDE</button>
     </div>
 
     <div id="game-screen" class="hidden">
-        
         <div class="top-bar">
             <button id="menu-btn" onclick="togglePauseMenu()">⏸ MENU</button>
             <button id="fullscreen-btn" onclick="toggleFullScreen()">⛶ FULLSCREEN</button>
             <button id="sound-btn" onclick="toggleSound()">🔊</button>
         </div>
 
-       <div class="dice-row top-dice-row">
-    <div id="dice-container-red" class="dice-wrapper">
-        <div id="dice-red" class="dice-btn" onclick="tryRoll('red')">
-            <img src="dice1.png" id="dice-img-red" class="dice-face-img">
+        <div class="dice-row top-dice-row">
+            <div id="dice-container-red" class="dice-wrapper">
+                <div id="dice-red" class="dice-btn" onclick="tryRoll('red')">
+                    <img src="dice1.png" id="dice-img-red" class="dice-face-img">
+                </div>
+            </div>
+            <div id="dice-container-green" class="dice-wrapper">
+                <div id="dice-green" class="dice-btn" onclick="tryRoll('green')">
+                    <img src="dice1.png" id="dice-img-green" class="dice-face-img">
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div id="dice-container-green" class="dice-wrapper">
-        <div id="dice-green" class="dice-btn" onclick="tryRoll('green')">
-            <img src="dice1.png" id="dice-img-green" class="dice-face-img">
-        </div>
-    </div>
-</div>
 
         <div class="board-wrapper">
             <div class="game-container">
                 <img src="board.png" class="board-img" alt="Ludo Board">
+                <img src="red_pawn.png" class="pawn" id="r0" onclick="handlePawnClick('red', 0)">
+                <img src="red_pawn.png" class="pawn" id="r1" onclick="handlePawnClick('red', 1)">
+                <img src="red_pawn.png" class="pawn" id="r2" onclick="handlePawnClick('red', 2)">
+                <img src="red_pawn.png" class="pawn" id="r3" onclick="handlePawnClick('red', 3)">
                 
-                <img src="red_pawn.png" class="pawn pawn-red" id="r0" onclick="handlePawnClick('red', 0)">
-                <img src="red_pawn.png" class="pawn pawn-red" id="r1" onclick="handlePawnClick('red', 1)">
-                <img src="red_pawn.png" class="pawn pawn-red" id="r2" onclick="handlePawnClick('red', 2)">
-                <img src="red_pawn.png" class="pawn pawn-red" id="r3" onclick="handlePawnClick('red', 3)">
-                
-                <img src="green_pawn.png" class="pawn pawn-green" id="g0" onclick="handlePawnClick('green', 0)">
-                <img src="green_pawn.png" class="pawn pawn-green" id="g1" onclick="handlePawnClick('green', 1)">
-                <img src="green_pawn.png" class="pawn pawn-green" id="g2" onclick="handlePawnClick('green', 2)">
-                <img src="green_pawn.png" class="pawn pawn-green" id="g3" onclick="handlePawnClick('green', 3)">
+                <img src="green_pawn.png" class="pawn" id="g0" onclick="handlePawnClick('green', 0)">
+                <img src="green_pawn.png" class="pawn" id="g1" onclick="handlePawnClick('green', 1)">
+                <img src="green_pawn.png" class="pawn" id="g2" onclick="handlePawnClick('green', 2)">
+                <img src="green_pawn.png" class="pawn" id="g3" onclick="handlePawnClick('green', 3)">
 
-                <img src="yellow_pawn.png" class="pawn pawn-yellow" id="y0" onclick="handlePawnClick('yellow', 0)">
-                <img src="yellow_pawn.png" class="pawn pawn-yellow" id="y1" onclick="handlePawnClick('yellow', 1)">
-                <img src="yellow_pawn.png" class="pawn pawn-yellow" id="y2" onclick="handlePawnClick('yellow', 2)">
-                <img src="yellow_pawn.png" class="pawn pawn-yellow" id="y3" onclick="handlePawnClick('yellow', 3)">
+                <img src="yellow_pawn.png" class="pawn" id="y0" onclick="handlePawnClick('yellow', 0)">
+                <img src="yellow_pawn.png" class="pawn" id="y1" onclick="handlePawnClick('yellow', 1)">
+                <img src="yellow_pawn.png" class="pawn" id="y2" onclick="handlePawnClick('yellow', 2)">
+                <img src="yellow_pawn.png" class="pawn" id="y3" onclick="handlePawnClick('yellow', 3)">
 
-                <img src="blue_pawn.png" class="pawn pawn-blue" id="b0" onclick="handlePawnClick('blue', 0)">
-                <img src="blue_pawn.png" class="pawn pawn-blue" id="b1" onclick="handlePawnClick('blue', 1)">
-                <img src="blue_pawn.png" class="pawn pawn-blue" id="b2" onclick="handlePawnClick('blue', 2)">
-                <img src="blue_pawn.png" class="pawn pawn-blue" id="b3" onclick="handlePawnClick('blue', 3)">
+                <img src="blue_pawn.png" class="pawn" id="b0" onclick="handlePawnClick('blue', 0)">
+                <img src="blue_pawn.png" class="pawn" id="b1" onclick="handlePawnClick('blue', 1)">
+                <img src="blue_pawn.png" class="pawn" id="b2" onclick="handlePawnClick('blue', 2)">
+                <img src="blue_pawn.png" class="pawn" id="b3" onclick="handlePawnClick('blue', 3)">
             </div>
         </div>
 
-       <div class="dice-row bottom-dice-row">
-    <div id="dice-container-blue" class="dice-wrapper">
-        <div id="dice-blue" class="dice-btn" onclick="tryRoll('blue')">
-            <img src="dice1.png" id="dice-img-blue" class="dice-face-img">
+        <div class="dice-row bottom-dice-row">
+            <div id="dice-container-blue" class="dice-wrapper">
+                <div id="dice-blue" class="dice-btn" onclick="tryRoll('blue')">
+                    <img src="dice1.png" id="dice-img-blue" class="dice-face-img">
+                </div>
+            </div>
+            <div id="dice-container-yellow" class="dice-wrapper">
+                <div id="dice-yellow" class="dice-btn" onclick="tryRoll('yellow')">
+                    <img src="dice1.png" id="dice-img-yellow" class="dice-face-img">
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div id="dice-container-yellow" class="dice-wrapper">
-        <div id="dice-yellow" class="dice-btn" onclick="tryRoll('yellow')">
-            <img src="dice1.png" id="dice-img-yellow" class="dice-face-img">
-        </div>
-    </div>
-</div>
 
         <div class="control-panel">
             <div id="game-status" class="status-text">Ready</div>
@@ -107,15 +96,8 @@
     </div>
 
     <script src="script.js"></script>
-    
     <script>
-        function showRules() { 
-            alert("📜 RULES:\n\n1. Roll 6 to Start.\n2. Roll 6, Kill, or Home = BONUS TURN.\n3. Otherwise, only 1 roll per turn."); 
-        }
-        // togglePauseMenu, quitGame, and restartGame are now handled by script.js
+        function showRules() { alert("📜 RULES:\n\n1. Roll 6 to Start.\n2. Roll 6, Kill, or Home = BONUS TURN.\n3. Otherwise, 1 roll per turn."); }
     </script>
 </body>
-
 </html>
-
-
