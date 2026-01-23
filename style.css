@@ -95,9 +95,9 @@ h1, h2, button { letter-spacing: 1px; }
 .dice-row {
     width: 90%; 
     display: flex; 
-    justify-content: space-between; 
+    justify-content: space-between; /* Pushes items to opposite corners */
     align-items: center;
-    height: 80px; 
+    height: 90px; 
     z-index: 10; 
 }
 
@@ -293,6 +293,7 @@ h1, h2, button { letter-spacing: 1px; }
     background: #ff4757 !important; 
     color: #fff !important; 
 }
+
 
 
 
