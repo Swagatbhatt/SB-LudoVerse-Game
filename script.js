@@ -69,16 +69,23 @@ function startGame(mode) {
         if (mode === 4) activeColors = ['red', 'green', 'yellow', 'blue'];
     }
 
-    ['red', 'green', 'yellow', 'blue'].forEach(c => {
-        for(let i=0; i<4; i++) {
-            document.getElementById(c[0] + i).style.display = activeColors.includes(c) ? 'block' : 'none';
-        }
-        let diceContainer = document.getElementById(`dice-container-${c}`);
-        if(diceContainer) {
-            diceContainer.style.display = activeColors.includes(c) ? 'flex' : 'none';
-            document.getElementById(`dice-img-${c}`).src = "dice1.png";
-        }
-    });
+   // ... inside startGame(mode) ...
+['red', 'green', 'yellow', 'blue'].forEach(c => {
+    // Pawns visibility
+    for(let i=0; i<4; i++) {
+        document.getElementById(c[0] + i).style.display = activeColors.includes(c) ? 'block' : 'none';
+    }
+    
+    // Dice visibility - Use 'visibility' instead of 'display'
+    let diceContainer = document.getElementById(`dice-container-${c}`);
+    if(diceContainer) {
+        // This keeps the 'box' there even if the dice is invisible
+        diceContainer.style.visibility = activeColors.includes(c) ? 'visible' : 'hidden';
+        
+        // Ensure the default image is set
+        document.getElementById(`dice-img-${c}`).src = "dice1.png";
+    }
+});
 
     showMainMenuUI(false);
     resetGameState();
@@ -479,4 +486,5 @@ function restartGame() {
     statusText.innerText = "GAME RESTARTED";
 }
 function quitGame() { location.reload(); }
+
 
