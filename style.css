@@ -295,3 +295,22 @@ h1, h2, button { letter-spacing: 1px; }
 .btn-restart-menu { background: #f1c40f; color: #000; } 
 
 .btn-quit-menu { background: #ff4757; color: #fff; }
+
+#fullscreen-btn {
+    background: #222; 
+    border: 1px solid #aaa; 
+    color: #fff; 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 11px; /* Slightly smaller to fit the row */
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.5); 
+}
+
+#fullscreen-btn:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
