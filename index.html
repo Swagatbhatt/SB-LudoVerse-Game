@@ -38,14 +38,19 @@
             <button id="sound-btn" onclick="toggleSound()">🔊</button>
         </div>
 
-        <div class="dice-row top-dice-row">
-            <div id="dice-container-red" class="dice-wrapper">
-                <div id="dice-red" class="dice-btn" onclick="tryRoll('red')"><span id="dice-val-red">Start</span></div>
-            </div>
-            <div id="dice-container-green" class="dice-wrapper">
-                <div id="dice-green" class="dice-btn" onclick="tryRoll('green')"><span id="dice-val-green">Start</span></div>
-            </div>
+       <div class="dice-row top-dice-row">
+    <div id="dice-container-red" class="dice-wrapper">
+        <div id="dice-red" class="dice-btn" onclick="tryRoll('red')">
+            <img src="dice1.png" id="dice-img-red" class="dice-face-img">
         </div>
+    </div>
+
+    <div id="dice-container-green" class="dice-wrapper">
+        <div id="dice-green" class="dice-btn" onclick="tryRoll('green')">
+            <img src="dice1.png" id="dice-img-green" class="dice-face-img">
+        </div>
+    </div>
+</div>
 
         <div class="board-wrapper">
             <div class="game-container">
@@ -73,14 +78,19 @@
             </div>
         </div>
 
-        <div class="dice-row bottom-dice-row">
-            <div id="dice-container-blue" class="dice-wrapper">
-                <div id="dice-blue" class="dice-btn" onclick="tryRoll('blue')"><span id="dice-val-blue">Start</span></div>
-            </div>
-            <div id="dice-container-yellow" class="dice-wrapper">
-                <div id="dice-yellow" class="dice-btn" onclick="tryRoll('yellow')"><span id="dice-val-yellow">Start</span></div>
-            </div>
+       <div class="dice-row bottom-dice-row">
+    <div id="dice-container-blue" class="dice-wrapper">
+        <div id="dice-blue" class="dice-btn" onclick="tryRoll('blue')">
+            <img src="dice1.png" id="dice-img-blue" class="dice-face-img">
         </div>
+    </div>
+
+    <div id="dice-container-yellow" class="dice-wrapper">
+        <div id="dice-yellow" class="dice-btn" onclick="tryRoll('yellow')">
+            <img src="dice1.png" id="dice-img-yellow" class="dice-face-img">
+        </div>
+    </div>
+</div>
 
         <div class="control-panel">
             <div id="game-status" class="status-text">Ready</div>
@@ -107,4 +117,5 @@
 </body>
 
 </html>
+
 
