@@ -31,9 +31,9 @@ let positions = {
 // 2. ROBUST AUDIO SYSTEM (Offline Optimized)
 // ============================================
 const sounds = { 
-    roll: new Audio('sounds/roll.mp3'), 
-    step: new Audio('sounds/step.mp3'), 
-    win: new Audio('sounds/win.mp3') 
+    roll: new Audio('roll.mp3'), 
+    step: new Audio('step.mp3'), 
+    win: new Audio('win.mp3') 
 };
 
 // Preload sounds
@@ -686,4 +686,5 @@ function quitGame() {
 function togglePauseMenu() {
     const modal = document.getElementById('pause-modal');
     modal.classList.toggle('hidden');
+
 }
